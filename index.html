@@ -43,7 +43,12 @@
     </script>
   </head>
   <body>
-    <!-- The table will be added here -->
     <p>{{page.property}}</p>
+    <!-- The table will be added here -->
+<ul>
+  {% for page in site.pages %}
+      <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+  {% endfor %}  <!-- page -->
+</ul>
   </body>
 </html>

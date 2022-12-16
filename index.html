@@ -1,6 +1,49 @@
+---
+  property: xxx
+---
 <html>
-<head>
-  <title>My web page<title>
-</head>
-<body> Written on Ipad</body>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@3.14.0/dist/js-yaml.min.js"></script>
+    <script>
+      // Load the YAML data from a file
+      fetch('data.yaml')
+        .then(response => response.text())
+        .then(yamlText => {
+          // Parse the YAML data
+          const data = jsyaml.load(yamlText);
+          books = data.books;
+
+          // Create the table
+          const table = document.createElement('table');
+
+          // Add the table headers
+          const headers = Object.keys(books[0]);
+          const headerRow = document.createElement('tr');
+          headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+          });
+          table.appendChild(headerRow);
+
+          // Add the table data
+          books.forEach(rowData => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+              const td = document.createElement('td');
+              td.textContent = rowData[header];
+              tr.appendChild(td);
+            });
+            table.appendChild(tr);
+          });
+
+          // Add the table to the page
+          document.body.appendChild(table);
+        });
+    </script>
+  </head>
+  <body>
+    <!-- The table will be added here -->
+    <p>{{page.property}}</p>
+  </body>
 </html>
